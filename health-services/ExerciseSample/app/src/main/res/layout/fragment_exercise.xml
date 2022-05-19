@@ -25,15 +25,15 @@
 
     <ImageView
         android:id="@+id/clock_icon"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:layout_marginEnd="@dimen/space_4dp"
         android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="@id/elapsed_time"
+        app:layout_constraintTop_toTopOf="@id/elapsed_time"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/elapsed_time"
-        app:layout_constraintTop_toTopOf="@id/elapsed_time"
         app:srcCompat="@drawable/ic_clock"
         app:tint="?colorControlActivated" />
 
@@ -41,6 +41,7 @@
         android:id="@+id/elapsed_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:lines="1"
         android:text="@string/empty_time"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
@@ -59,8 +60,8 @@
 
     <ImageView
         android:id="@+id/heart_rate_icon"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="@id/heart_rate_text"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -72,11 +73,11 @@
         android:id="@+id/heart_rate_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:layout_marginHorizontal="@dimen/space_4dp"
-        android:layout_marginTop="@dimen/space_4dp"
         android:enabled="false"
         android:gravity="center_vertical"
-        android:minHeight="32dp"
+        android:minHeight="10dp"
         android:text="@string/empty_metric"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintBottom_toTopOf="@id/distance_text"
@@ -84,17 +85,20 @@
         app:layout_constraintRight_toLeftOf="@id/guide_v50pct"
         app:layout_constraintTop_toBottomOf="@id/elapsed_time"
         tools:enabled="true"
-        tools:text="165" />
+        tools:text="0" />
+
+  <!--there 1 -->
 
     <ImageView
         android:id="@+id/calories_icon"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="@id/calories_text"
         app:layout_constraintLeft_toRightOf="@id/guide_v50pct"
         app:layout_constraintTop_toBottomOf="@id/elapsed_time"
         app:layout_constraintTop_toTopOf="@id/calories_text"
+        app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/ic_calories_burned"
         app:tint="?colorControlActivated" />
 
@@ -103,11 +107,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_4dp"
-        android:layout_marginTop="@dimen/space_4dp"
+        android:gravity="center"
         android:enabled="false"
-        android:gravity="center_vertical"
         android:minHeight="32dp"
         android:text="@string/empty_metric"
+        android:textSize="12sp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintLeft_toRightOf="@id/calories_icon"
         app:layout_constraintRight_toRightOf="parent"
@@ -117,8 +121,8 @@
 
     <ImageView
         android:id="@+id/distance_icon"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="@id/distance_text"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -132,26 +136,29 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_4dp"
         android:enabled="false"
-        android:gravity="center_vertical"
-        android:minHeight="32dp"
         android:text="@string/empty_metric"
+        android:textSize="12sp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintBottom_toTopOf="@id/start_end_button"
-        app:layout_constraintLeft_toRightOf="@id/heart_rate_icon"
+        app:layout_constraintLeft_toRightOf="@id/distance_icon"
         app:layout_constraintRight_toLeftOf="@id/guide_v50pct"
         app:layout_constraintTop_toBottomOf="@id/heart_rate_text"
         tools:enabled="true"
-        tools:text="1.1" />
+        tools:text="0.0" />
+
+    <!--there 2-->
+
 
     <ImageView
         android:id="@+id/laps_icon"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="@id/laps_text"
         app:layout_constraintLeft_toRightOf="@id/guide_v50pct"
         app:layout_constraintTop_toBottomOf="@id/elapsed_time"
         app:layout_constraintTop_toTopOf="@id/laps_text"
+        app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/ic_lap"
         app:tint="?colorControlActivated" />
 
@@ -162,14 +169,46 @@
         android:layout_marginHorizontal="@dimen/space_4dp"
         android:enabled="false"
         android:gravity="center_vertical"
-        android:minHeight="32dp"
         android:text="@string/empty_metric"
+        android:textSize="12sp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintLeft_toRightOf="@id/calories_icon"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calories_text"
         tools:enabled="true"
         tools:text="2" />
+
+
+    <ImageView
+        android:id="@+id/pressure_icon"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="@id/pressure_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/pressure_text"
+        app:srcCompat="@drawable/barometer"
+        app:tint="?colorControlActivated" />
+
+    <TextView
+        android:id="@+id/pressure_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_4dp"
+        android:layout_marginTop="@dimen/space_4dp"
+        android:enabled="false"
+        android:gravity="center_vertical"
+        android:text="@string/empty_metric"
+        android:textSize="8sp"
+        android:textColor="@android:color/white"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        app:layout_constraintBottom_toTopOf="@id/start_end_button"
+        app:layout_constraintLeft_toRightOf="@id/pressure_icon"
+        app:layout_constraintRight_toLeftOf="@id/guide_v50pct"
+        app:layout_constraintTop_toBottomOf="@id/distance_text"
+        tools:enabled="true"
+        tools:text="0 hPa" />
+
 
     <Button
         android:id="@+id/start_end_button"

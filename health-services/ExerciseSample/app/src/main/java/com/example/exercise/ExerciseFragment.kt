@@ -16,19 +16,20 @@
 
 package com.example.exercise
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.health.services.client.data.AggregateDataPoint
-import androidx.health.services.client.data.CumulativeDataPoint
-import androidx.health.services.client.data.DataPoint
-import androidx.health.services.client.data.DataType
-import androidx.health.services.client.data.ExerciseState
+import androidx.health.services.client.data.*
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -49,7 +50,7 @@ import kotlin.math.roundToInt
  * Fragment showing the exercise controls and current exercise metrics.
  */
 @AndroidEntryPoint
-class ExerciseFragment : Fragment() {
+class ExerciseFragment : Fragment(), SensorEventListener  {
 
     @Inject
     lateinit var healthServicesManager: HealthServicesManager
@@ -69,6 +70,10 @@ class ExerciseFragment : Fragment() {
     private lateinit var ambientController: AmbientModeSupport.AmbientController
     private lateinit var ambientModeHandler: AmbientModeHandler
 
+    private var sensorManager: SensorManager? = null
+    private var pressureSensor: Sensor? = null
+    private var isPressureSensoravailable: Boolean? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -80,6 +85,16 @@ class ExerciseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        if (sensorManager!!.getDefaultSensor(Sensor.TYPE_PRESSURE) != null) {
+            pressureSensor = sensorManager!!.getDefaultSensor(Sensor.TYPE_PRESSURE)
+            isPressureSensoravailable = true
+        } else {
+            isPressureSensoravailable = false
+            binding.pressureText.setText("NA")
+        }
 
         binding.startEndButton.setOnClickListener {
             // App could take a perceptible amount of time to transition between states; put button into
@@ -363,5 +378,28 @@ class ExerciseFragment : Fragment() {
 
     private companion object {
         const val CHRONO_TICK_MS = 200L
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        binding.pressureText.setText(event!!.values[0].toString() + " hPa")
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isPressureSensoravailable!!) {
+            sensorManager!!.registerListener(
+                this, pressureSensor,
+                SensorManager.SENSOR_DELAY_NORMAL
+            )
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (isPressureSensoravailable!!) sensorManager!!.unregisterListener(this)
     }
 }
